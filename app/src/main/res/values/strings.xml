@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">probaPera</string>
+    <string name="loginText">Логин</string>
+    <string name="passwordText">Пароль</string>
+    <string name="firstPageText">Авторизация</string>
+    <string name="firstPageButton">Вход</string>
+    <string name="nothingInText">Одно из полей пустое. Заполните все поля.</string>
+
+
+</resources>
