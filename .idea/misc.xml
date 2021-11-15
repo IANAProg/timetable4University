@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/delet/AndroidStudioProjects/probaPera/app/src/main/res/layout/activity_main.xml" value="0.13796296296296295" />
+        <entry key="..\:/Users/delet/AndroidStudioProjects/probaPera/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.58203125" />
+        <entry key="..\:/Users/delet/AndroidStudioProjects/probaPera/app/src/main/res/drawable/ic_launcher_background.xml" value="0.58203125" />
+        <entry key="..\:/Users/delet/AndroidStudioProjects/probaPera/app/src/main/res/layout/activity_main.xml" value="0.485" />
+        <entry key="..\:/Users/delet/AndroidStudioProjects/probaPera/app/src/main/res/layout/second.xml" value="0.5" />
       </map>
     </option>
   </component>
