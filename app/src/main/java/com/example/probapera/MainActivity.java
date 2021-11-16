@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private RequestBuilder reqBuilder = RequestBuilder.post(); // создаем пост-запрос
         //нихуя я умный, сначала создал переменную на ответ, а потом на запрос
     private RequestBuilder reqBuilder1 = reqBuilder.setUri("http://portal.mfmgutu.ru/new_check_auth.php");// Определяем куда запрашиваем
-    HttpGet httpGet = new HttpGet("http://www.tutorialspoint.com/");// Определяем куда запрашиваем
+    HttpGet httpGet = new HttpGet("http://portal.mfmgutu.ru/index_ins.php?bl=1&idpg=915");// Определяем куда запрашиваем
     private HttpEntity entity;
     private Scanner sc;
 
@@ -93,8 +93,8 @@ public class MainActivity extends AppCompatActivity {
         if (login.getText().toString().trim().equals("")
                 &&
                 password.getText().toString().trim().equals(""))
-            // проверяем не долбаеб ли пользователь, может он все же воткнул пустые строки?
-            // А нахуй надо теребить лишний раз запросами серв?
+        // проверяем не долбаеб ли пользователь, может он все же воткнул пустые строки?
+        // А нахуй надо теребить лишний раз запросами серв?
         {
             Toast.makeText(MainActivity.this, R.string.nothingInText, Toast.LENGTH_LONG).show();
             //деликатно довести до пользователя что он долбаеб
