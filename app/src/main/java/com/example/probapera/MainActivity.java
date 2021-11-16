@@ -1,5 +1,6 @@
 package com.example.probapera;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -26,17 +27,16 @@ public class MainActivity extends AppCompatActivity {
     private Button signIn;
     private Thread secondThread; // эта параша и параша ниже для второго потока, чтоб не ебал мозг с загрузкой графики
     private Runnable runnable; // все спиженно с гайдов, надеюсь пахать будет
-    private CloseableHttpClient client = HttpClients.createDefault(); // ставим клиент веб-сервиса (или как там эта хуйня называется)
     private CloseableHttpResponse response; // ответка на запрос
-    private RequestBuilder reqBuilder = RequestBuilder.post(); // создаем пост-запрос
+    private RequestBuilder reqBuilder = RequestBuilder.post().setUri("http://portal.mfmgutu.ru/new_check_auth.php"); // создаем пост-запрос и Определяем куда запрашиваем
         //нихуя я умный, сначала создал переменную на ответ, а потом на запрос
-    private RequestBuilder reqBuilder1 = reqBuilder.setUri("http://portal.mfmgutu.ru/new_check_auth.php");// Определяем куда запрашиваем
     HttpGet httpGet = new HttpGet("http://portal.mfmgutu.ru/index_ins.php?bl=1&idpg=915");// Определяем куда запрашиваем
     private HttpEntity entity;
     private Scanner sc;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -47,37 +47,59 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    public void init() {
-        runnable = new Runnable() {
+    public void init()
+    {
+        runnable = new Runnable()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
+                CloseableHttpClient client = HttpClients.createDefault(); // запускаем клиент веб-сервиса (или как там эта хуйня называется)
+               // System.out.println(3);
 
-                System.out.println(3);
-
-                RequestBuilder reqBuilder2 = reqBuilder1 // указываем что будет в запросе
+                RequestBuilder reqBuilder1 = reqBuilder // указываем что будет в запросе
                         .addParameter("login", login.getText().toString().trim()) // логин
                         .addParameter("pass", password.getText().toString().trim());// пароль
-                HttpUriRequest httpPost = reqBuilder2.build();// создаем мужицкий запрос (на женщин)
+                HttpUriRequest httpPost = reqBuilder1.build();// создаем мужицкий запрос (на женщин)
                 System.out.println(5);
-                try {
-                    System.out.println(6);
-                    response = client.execute(httpPost); // а вот теперь-ча будем долбить сайт запросом и ждать ответ
-                    System.out.println(7);
-                    response = client.execute(httpGet); // заходим на искомую страницу
-                    System.out.println(8);
-                    entity = response.getEntity(); // получаем объект странички
-                    System.out.println(9);
-                    sc = new Scanner(entity.getContent()); // эта хуйня стартует выкладку страницы
-                    System.out.println(10);
+                try
+                {
+                    try
+                    {
+                        //System.out.println(6);
+                        response = client.execute(httpPost); // а вот теперь-ча будем долбить сайт запросом и ждать ответ
+                        // System.out.println(7);
+                        response = client.execute(httpGet); // заходим на искомую страницу
+                        // System.out.println(8);
+                        entity = response.getEntity(); // получаем объект странички
+                        // System.out.println(9);
+                        sc = new Scanner(entity.getContent()); // эта хуйня стартует выкладку страницы
+                        //System.out.println(10);
 
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    System.out.println(4);
-                }finally{
-                    try {
+                    } finally
+                    {
                         response.close();
-                    } catch (IOException e) {
+                        client.close();
+                        if (sc.nextLine().equals("<!DOCTYPE html>"))
+                        {
+                            Intent intent = new Intent(MainActivity.this, SecondActivity.class); // переход на вторую страницу (если вщ надо будет)
+                            intent.putExtra("login",login.getText().toString().trim());
+                            intent.putExtra("pass",password.getText().toString().trim());
+                            startActivity(intent);
+                        }
+                    }
+
+                } catch (IOException e)
+                {
+                    e.printStackTrace();
+                    //System.out.println(4);
+                }finally
+                {
+                    try
+                    {
+                        response.close();
+                    } catch (IOException e)
+                    {
                         e.printStackTrace();
                     }
                 }
@@ -89,7 +111,8 @@ public class MainActivity extends AppCompatActivity {
         System.out.println(2);
 
     }
-    public void Click(View view) {
+    public void Click(View view)
+    {
         if (login.getText().toString().trim().equals("")
                 &&
                 password.getText().toString().trim().equals(""))
@@ -98,7 +121,8 @@ public class MainActivity extends AppCompatActivity {
         {
             Toast.makeText(MainActivity.this, R.string.nothingInText, Toast.LENGTH_LONG).show();
             //деликатно довести до пользователя что он долбаеб
-        } else {
+        } else
+        {
             System.out.println(1);
             init();
             /*Intent intent = new Intent(MainActivity.this, SecondActivity.class); // переход на вторую страницу (если вщ надо будет)
